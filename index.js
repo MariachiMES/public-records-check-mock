@@ -31,6 +31,17 @@ function getNamesArr() {
 }
 
 function jumbleNames(firstArr, lastArr) {
+	if (
+		!firstName.value ||
+		!lastName.value ||
+		!a_number.value ||
+		!dob.value ||
+		a_number.value.length !== 9
+	) {
+		return alert(
+			'There is some missing data, or your A-number is not quite. Trying to help you, dude.  \n\n love, david.'
+		);
+	}
 	let fullNameArr = [];
 	if (firstArr.length > 1) {
 		fullNameArr.push(firstArr.concat(lastArr).join(' '));
