@@ -24,29 +24,45 @@
 		<title>Document</title>
 	</head>
 	<body>
-		<div class="inputs no-print">
-			<label for="a-number">A#</label>
-			<input
-				type="text"
-				id="a-number"
-			/>
-			<label for="first-name">First Name:</label>
-			<input
-				id="first-name"
-				type="text"
-			/>
-			<label for="last-name">Last Name:</label>
-			<input
-				id="last-name"
-				type="text"
-			/>
-			<label for="dob">DOB:</label>
-			<input
-				id="dob"
-				type="text"
-			/>
+		<div class="p-4 inputs no-print w-25">
+			<div class="form-floating mb-3">
+				<input
+					type="text"
+					class="form-control"
+					id="a-number"
+					placeholder="A Number"
+				/>
+				<label for="a-number">A-Number</label>
+			</div>
+			<div class="form-floating mb-3">
+				<input
+					type="text"
+					class="form-control"
+					id="first-name"
+					placeholder="First Name"
+				/>
+				<label for="first-name">First Name</label>
+			</div>
+			<div class="form-floating mb-3">
+				<input
+					type="text"
+					class="form-control"
+					id="last-name"
+					placeholder="Last Name"
+				/>
+				<label for="last-name">Last Name</label>
+			</div>
+			<div class="form-floating mb-3">
+				<input
+					type="text"
+					class="form-control"
+					id="dob"
+					placeholder="DOB"
+				/>
+				<label for="dob">DOB</label>
+			</div>
 			<button
-				class="btn"
+				class="btn mt-3"
 				type="button"
 				id="go-button"
 			>
