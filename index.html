@@ -1,4 +1,4 @@
--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
@@ -16,11 +16,20 @@
 			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 			crossorigin="anonymous"
 		/>
+		<link
+			rel="stylesheet"
+			href="./styles.css"
+		/>
 
 		<title>Document</title>
 	</head>
 	<body>
-		<div class="inputs">
+		<div class="inputs no-print">
+			<label for="a-number">A#</label>
+			<input
+				type="text"
+				id="a-number"
+			/>
 			<label for="first-name">First Name:</label>
 			<input
 				id="first-name"
@@ -44,7 +53,12 @@
 				Go
 			</button>
 		</div>
-		<h1 class="d-flex p-2">Public Records Check</h1>
+		<h1
+			id="todays-date"
+			class="d-flex p-2"
+		>
+			Public Records Check
+		</h1>
 		<table class="table">
 			<thead>
 				<tr>
