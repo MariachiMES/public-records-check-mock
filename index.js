@@ -4,10 +4,7 @@ const dob = document.getElementById('dob');
 const goBtn = document.getElementById('go-button');
 const tableBodyEl = document.getElementById('table-body');
 const a_number = document.getElementById('a-number');
-a_number.value = '123456789';
-firstName.value = 'David Jose';
-lastName.value = 'Salazar Ortiz';
-dob.value = '2/2/1928';
+a_number.placeholder = 'A Number';
 
 const todayEl = document.getElementById('todays-date');
 const today = new Date();
