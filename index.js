@@ -39,7 +39,7 @@ function jumbleNames(firstArr, lastArr) {
 		a_number.value.length !== 9
 	) {
 		return alert(
-			'There is some missing data, or your A-number is not quite. Trying to help you, dude.  \n\n love, david.'
+			'There is some missing data, or your A-number is not quite correct somehow. Trying to help you, dude.  \n\n love, david.'
 		);
 	}
 	let fullNameArr = [];
