@@ -28,50 +28,137 @@
 		<title>David's Records Check</title>
 	</head>
 	<body>
-		<div class="p-4 inputs no-print w-25">
-			<div class="form-floating mb-3">
-				<input
-					type="text"
-					class="form-control"
-					id="a-number"
-					placeholder="A Number"
-				/>
-				<label for="a-number">A-Number</label>
+		<div class="p-4 inputs no-print w-full">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm">
+						<div class="form-floating mb-3">
+							<input
+								type="text"
+								class="form-control"
+								id="a-number"
+								placeholder="A Number"
+							/>
+							<label for="a-number">A-Number</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input
+								type="text"
+								class="form-control"
+								id="first-name"
+								placeholder="First Name"
+							/>
+							<label for="first-name">First Name</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input
+								type="text"
+								class="form-control"
+								id="last-name"
+								placeholder="Last Name"
+							/>
+							<label for="last-name">Last Name</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input
+								type="text"
+								class="form-control"
+								id="dob"
+								placeholder="DOB"
+							/>
+							<label for="dob">DOB</label>
+						</div>
+						<button
+							class="btn mt-3"
+							type="button"
+							id="go-button"
+						>
+							Generate Background Checks
+						</button>
+						<button
+							class="btn mt-3"
+							type="button"
+							id="fingerprints"
+						>
+							Generate Fingerprints
+						</button>
+						<button
+							class="btn mt-3"
+							type="button"
+							id="lopc"
+						>
+							Generate LOPC
+						</button>
+						<button
+							class="btn mt-3"
+							type="button"
+							id="poa"
+						>
+							Generate POA
+						</button>
+					</div>
+
+					<div class="col-sm">
+						<div class="form-floating mb-3">
+							<input
+								type="text"
+								class="form-control"
+								id="address"
+								placeholder="Address"
+							/>
+							<label for="address">Address</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input
+								type="text"
+								class="form-control"
+								id="city"
+								placeholder="City"
+							/>
+							<label for="city">City</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input
+								type="text"
+								class="form-control"
+								id="state"
+								placeholder="State"
+							/>
+							<label for="state">State</label>
+						</div>
+
+						<div class="form-floating mb-3">
+							<input
+								type="text"
+								class="form-control"
+								id="zip"
+								placeholder="Zip"
+							/>
+							<label for="zip">Zip</label>
+						</div>
+					</div>
+					<div class="col-sm">
+						<div class="form-floating mb-3">
+							<input
+								type="text"
+								class="form-control"
+								id="phone"
+								placeholder="Phone"
+							/>
+							<label for="phone">Phone</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input
+								type="text"
+								class="form-control"
+								id="background-check-results"
+								placeholder="Results"
+							/>
+							<label for="background-check-results">Results</label>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="form-floating mb-3">
-				<input
-					type="text"
-					class="form-control"
-					id="first-name"
-					placeholder="First Name"
-				/>
-				<label for="first-name">First Name</label>
-			</div>
-			<div class="form-floating mb-3">
-				<input
-					type="text"
-					class="form-control"
-					id="last-name"
-					placeholder="Last Name"
-				/>
-				<label for="last-name">Last Name</label>
-			</div>
-			<div class="form-floating mb-3">
-				<input
-					type="text"
-					class="form-control"
-					id="dob"
-					placeholder="DOB"
-				/>
-				<label for="dob">DOB</label>
-			</div>
-			<button
-				class="btn mt-3"
-				type="button"
-				id="go-button"
-			>
-				Go
-			</button>
 		</div>
 		<h1
 			id="todays-date"
@@ -83,6 +170,7 @@
 			<thead>
 				<tr>
 					<th scope="col">Full Name</th>
+					<th scope="col">Address</th>
 					<th scope="col">DOB</th>
 					<th scope="col">Results</th>
 				</tr>

@@ -4,6 +4,9 @@ const dob = document.getElementById('dob');
 const goBtn = document.getElementById('go-button');
 const tableBodyEl = document.getElementById('table-body');
 const a_number = document.getElementById('a-number');
+const fingerPrintBtn = document.getElementById('fingerprints');
+const lopcBtn = document.getElementById('lopc');
+const poaBtn = docoument.getElementById('poa');
 a_number.placeholder = 'A Number';
 
 const todayEl = document.getElementById('todays-date');
@@ -11,6 +14,17 @@ const today = new Date();
 todayEl.append(today.toLocaleDateString());
 
 goBtn.addEventListener('click', getNamesArr);
+fingerPrintBtn.addEventListener('click', renderFingerprints);
+lopcBtn.addEventListener('click', renderLOPC);
+poaBtn.addEventListener('click', renderPoa);
+
+function renderFingerprints() {
+	console.log('render Finger Prints');
+}
+
+function renderLOPC() {}
+
+function renderPoa() {}
 
 let firstNameArr = [];
 let lastNameArr = [];
