@@ -6,7 +6,8 @@ const tableBodyEl = document.getElementById('table-body');
 const a_number = document.getElementById('a-number');
 const fingerPrintBtn = document.getElementById('fingerprints');
 const lopcBtn = document.getElementById('lopc');
-const poaBtn = docoument.getElementById('poa');
+const poaBtn = document.getElementById('poa');
+const stateEl = document.getElementById('state');
 a_number.placeholder = 'A Number';
 
 const todayEl = document.getElementById('todays-date');
@@ -75,9 +76,11 @@ function renderBGCheck(arr) {
 	tableBodyEl.innerHTML = '';
 	arr.forEach((line) => {
 		const tableRow = document.createElement('tr');
-		tableRow.innerHTML = `<td>${line}</td>
-      <td>${dob.value}</td>
-      <td>Clear</td>`;
+		tableRow.innerHTML = `
+		<td>${line}</td>
+		<td>${stateEl.value}</td>
+		<td>${dob.value}</td>
+		<td>Clear</td>`;
 		console.log(tableRow);
 		tableBodyEl.append(tableRow);
 		changeTitle();
