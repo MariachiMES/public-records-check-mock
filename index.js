@@ -68,16 +68,19 @@ function jumbleNames(firstArr, lastArr) {
 	}
 
 	for (var i = 0; i < firstArr.length; i++) {
-		fullNameArr.push(firstArr[i] + ' ' + lastArr.join(' '));
+		let newName = firstArr[i] + ' ' + lastArr.join(' ');
+		console.log(fullNameArr.includes(newName));
+		if (!fullNameArr.includes(newName) || newName.split(' ').length < 2) {
+			fullNameArr.push(newName);
+		}
 		for (var j = 0; j < lastArr.length; j++) {
-			fullNameArr.push(firstArr[i] + ' ' + lastArr[j]);
+			let secondName = firstArr[i] + ' ' + lastArr[j];
+			if (!fullNameArr.includes(secondName) || newName.split(' ').length < 2) {
+				fullNameArr.push(secondName);
+			}
 		}
 	}
 
-	const filteredArr = fullNameArr.filter((item, idx, arr) => {
-		return !arr.includes(item);
-	});
-	console.log(filteredArr, fullNameArr);
 	renderBGCheck(fullNameArr);
 }
 
@@ -99,7 +102,6 @@ function renderBGCheck(arr) {
 function getInitials(first, last) {
 	let initials = '';
 	for (var i = 0; i < first.length; i++) {
-		console.log(first);
 		initials += first[i].charAt(0).toUpperCase();
 	}
 	for (var j = 0; j < last.length; j++) {
