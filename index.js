@@ -9,6 +9,11 @@ const lopcBtn = document.getElementById('lopc');
 const poaBtn = document.getElementById('poa');
 const stateEl = document.getElementById('state');
 a_number.placeholder = 'A Number';
+a_number.value = '123456789';
+firstName.value = 'Panfilo Roberto';
+lastName.value = 'Jimenez Telosico';
+dob.value = '11/12/1990';
+stateEl.value = 'TX';
 
 const todayEl = document.getElementById('todays-date');
 const today = new Date();
@@ -68,7 +73,11 @@ function jumbleNames(firstArr, lastArr) {
 			fullNameArr.push(firstArr[i] + ' ' + lastArr[j]);
 		}
 	}
-	console.log(fullNameArr);
+
+	const filteredArr = fullNameArr.filter((item, idx, arr) => {
+		return !arr.includes(item);
+	});
+	console.log(filteredArr, fullNameArr);
 	renderBGCheck(fullNameArr);
 }
 
