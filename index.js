@@ -19,22 +19,6 @@ const childDob = document.getElementById('child-dob');
 const childName = document.getElementById('child-name');
 const fingerprintConfirmBtn = document.getElementById('fingerprint-confirm');
 
-a_number.placeholder = 'A Number';
-a_number.value = '123456789';
-firstName.value = 'Panfilo Roberto';
-lastName.value = 'Jimenez Telosico';
-dob.value = '11/12/1990';
-stateEl.value = 'TX';
-relationship.value = 'Father';
-phoneNum.value = '1234567890';
-caseManager.value = 'David Ortiz';
-results.value = 'Clear';
-childName.value = 'Lorenzo Enrique Ortiz';
-childDob.value = '6/3/2017';
-address.value = '123 Main Street';
-city.value = 'Anywhere';
-zipCode.value = '24323';
-
 goBtn.addEventListener('click', getNamesArr);
 fingerPrintBtn.addEventListener('click', renderFingerprints);
 lopcBtn.addEventListener('click', renderLOPC);
@@ -62,8 +46,15 @@ function emailConvert(str) {
 }
 
 function renderFingerprints() {
-	if (!firstName || !lastName) {
-		return alert('No Name Entered');
+	colorsBackToNormal();
+	if (firstName.value === '' || lastName.value === '') {
+		firstName.value === ''
+			? errorColorHandling(firstName)
+			: colorHandler(lastName);
+		lastName.value === ''
+			? errorColorHandling(lastName)
+			: colorHandler(lastName);
+		return alert('You are missing a name for this.');
 	}
 	const today = new Date().toLocaleDateString();
 
@@ -87,8 +78,15 @@ function renderFingerprints() {
 }
 
 function renderFPConfirmation() {
-	if (!firstName || !lastName) {
-		return alert('No Name Entered');
+	colorsBackToNormal();
+	if (firstName.value === '' || lastName.value === '') {
+		firstName.value === ''
+			? errorColorHandling(firstName)
+			: colorHandler(lastName);
+		lastName.value === ''
+			? errorColorHandling(lastName)
+			: colorHandler(lastName);
+		return alert('You are missing a name for this.');
 	}
 	const today = new Date().toLocaleDateString();
 	pageBodyEl.innerHTML = `
@@ -103,6 +101,7 @@ function renderFPConfirmation() {
 }
 
 function renderLOPC() {
+	colorsBackToNormal();
 	const dataPoints = document.querySelectorAll('.lopc');
 	let dataValues = [];
 	dataPoints.forEach((item) => {
@@ -209,6 +208,7 @@ function colorHandler(element) {
 }
 
 function renderPoa() {
+	colorsBackToNormal();
 	const poaNodes = document.querySelectorAll('.poa');
 	let poaData = [];
 	poaNodes.forEach((item) => {
@@ -233,6 +233,7 @@ let firstNameArr = [];
 let lastNameArr = [];
 
 function getNamesArr() {
+	colorsBackToNormal();
 	const checkNames = document.querySelectorAll('.bgc');
 	let bgcData = [];
 	checkNames.forEach((item) => {
@@ -373,6 +374,13 @@ function electricBillDate() {
 
 const billMonth = electricBillDate()[0];
 const fullBillDate = electricBillDate()[1];
+
+function colorsBackToNormal() {
+	const inputArr = document.querySelectorAll('input');
+	inputArr.forEach((item) => {
+		item.classList.remove('missing');
+	});
+}
 
 let proofOfAddressTemplate = `<style>
 body{
@@ -577,7 +585,7 @@ body{
 	 <div class="invoice-note">
 		* Make all checks payable to DS Utility<br>
 		* Payment is due within 30 days<br>
-		* If you have any questions concerning this invoice, contact Bad Bunny at T: 123.555.0000 E: BadBunny@greensborolive.com 
+		* If you have any questions concerning this invoice, contact AC Slater at T: 123.555.0000 E: BadBunny@greensborolive.com 
 	 </div>
 	 <!-- end invoice-note -->
 	 <!-- begin invoice-footer -->
