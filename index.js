@@ -2,22 +2,18 @@ const firstName = document.getElementById('first-name');
 const lastName = document.getElementById('last-name');
 const dob = document.getElementById('dob');
 const goBtn = document.getElementById('go-button');
-const tableBodyEl = document.getElementById('table-body');
 const a_number = document.getElementById('a-number');
 const fingerPrintBtn = document.getElementById('fingerprints');
 const lopcBtn = document.getElementById('lopc');
 const poaBtn = document.getElementById('poa');
 const stateEl = document.getElementById('state');
+const pageBodyEl = document.getElementById('page-body');
 a_number.placeholder = 'A Number';
 a_number.value = '123456789';
 firstName.value = 'Panfilo Roberto';
 lastName.value = 'Jimenez Telosico';
 dob.value = '11/12/1990';
 stateEl.value = 'TX';
-
-const todayEl = document.getElementById('todays-date');
-const today = new Date();
-todayEl.append(today.toLocaleDateString());
 
 goBtn.addEventListener('click', getNamesArr);
 fingerPrintBtn.addEventListener('click', renderFingerprints);
@@ -36,13 +32,13 @@ let firstNameArr = [];
 let lastNameArr = [];
 
 function getNamesArr() {
-	if (firstName.value.split(' ').length > 1) {
-		firstNameArr = firstName.value.split(' ');
+	if (firstName.value.trim().split(' ').length > 1) {
+		firstNameArr = firstName.value.trim().split(' ');
 	} else {
-		firstNameArr = [firstName.value];
+		firstNameArr = [firstName.value.trim()];
 	}
-	if (lastName.value.split(' ').length > 1) {
-		lastNameArr = lastName.value.split(' ');
+	if (lastName.value.trim().split(' ').length > 1) {
+		lastNameArr = lastName.value.trim().split(' ');
 	} else {
 		lastNameArr = [lastName.value];
 	}
@@ -85,7 +81,28 @@ function jumbleNames(firstArr, lastArr) {
 }
 
 function renderBGCheck(arr) {
-	tableBodyEl.innerHTML = '';
+	pageBodyEl.innerHTML = `
+	<h1 id="todays-date" class="d-flex p-2">
+		Public Records Check
+	</h1>
+	<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">Full Name</th>
+			<th scope="col">Address</th>
+			<th scope="col">DOB</th>
+			<th scope="col">Results</th>
+		</tr>
+	</thead>
+	<tbody id="table-body">
+		<tr></tr>
+	</tbody>
+	</table>`;
+	const tableBodyEl = document.getElementById('table-body');
+	const todayEl = document.getElementById('todays-date');
+	const today = new Date();
+	todayEl.append(today.toLocaleDateString());
+
 	arr.forEach((line) => {
 		const tableRow = document.createElement('tr');
 		tableRow.innerHTML = `
