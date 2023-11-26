@@ -41,8 +41,6 @@ lopcBtn.addEventListener('click', renderLOPC);
 poaBtn.addEventListener('click', renderPoa);
 fingerprintConfirmBtn.addEventListener('click', renderFPConfirmation);
 
-function renderFPConfirmation() {}
-
 function getNumbers(str, startPos, length) {
 	let newStr = '';
 	for (var i = 0; i < length; i++) {
@@ -64,6 +62,9 @@ function emailConvert(str) {
 }
 
 function renderFingerprints() {
+	if (!firstName || !lastName) {
+		return alert('No Name Entered');
+	}
 	const today = new Date().toLocaleDateString();
 
 	const apptTime = new Date().getHours() + 3;
@@ -82,15 +83,14 @@ function renderFingerprints() {
 	}</span>
   </h2>
 </section>`;
+	changeTitle('Fingerprint_Appt');
 }
 
 function renderFPConfirmation() {
+	if (!firstName || !lastName) {
+		return alert('No Name Entered');
+	}
 	const today = new Date().toLocaleDateString();
-
-	const apptTime = new Date().getHours() + 3;
-	const adjustedTime = apptTime > 12 ? apptTime - 12 : apptTime;
-	const amOrPm = apptTime > 11 ? 'pm' : 'am';
-
 	pageBodyEl.innerHTML = `
 	<section class="section">
   <img id="fieldprint-logo" style="height: 100px" src="./fieldprint.png" />
@@ -99,9 +99,26 @@ function renderFPConfirmation() {
 	fingerprint appointment on <span id="fp-appt-date">${today}</span>.
   </h2>
 </section>`;
+	changeTitle('Fingerprint_Confirmation');
 }
 
 function renderLOPC() {
+	const dataPoints = document.querySelectorAll('.lopc');
+	let dataValues = [];
+	dataPoints.forEach((item) => {
+		if (item.value === '') {
+			errorColorHandling(item);
+		} else {
+			dataValues.push(item.value);
+			colorHandler(item);
+		}
+	});
+	if (dataValues.length < 11) {
+		return alert(
+			`It appears you are missing some data. Case manager name, Child Name, A-Number, Sponsor first name, last name, address, city, state, zip code, phone number, and relationship are required.`
+		);
+	}
+
 	pageBodyEl.innerHTML = `
 	<div class="container is-max-desktop" style="text-align: center">
     <h1 class="title is-1">LOPC APPOINTMENT</h1>
@@ -137,7 +154,9 @@ function renderLOPC() {
             </tr>
             <tr>
                 <td>Send Confirmation Email to:</td>
-                <td>${emailConvert(caseManager.value)}@deployedservices.com</td>
+                <td>${emailConvert(
+									caseManager.value
+								).toLowerCase()}@deployedservices.com</td>
             </tr>
             <tr>
                 <td>Minor's Name:</td>
@@ -161,9 +180,11 @@ function renderLOPC() {
             </tr>
             <tr>
                 <td>Contact info of person making appointment:</td>
-                <td>${emailConvert(caseManager.value)}@deployedservices.com ${
+                <td>${emailConvert(
+									caseManager.value
+								).toLowerCase()}@deployedservices.com ${
 		caseManager.value
-	} 123-123-1234/ Greensboro Piedmont Academy ICF</td>
+	} Ph: 000.000.0000/ Greensboro ICF</td>
             </tr>
             <tr>
                 <td>Comments:</td>
@@ -176,16 +197,56 @@ function renderLOPC() {
     </table>
 </div>
 `;
+	changeTitle('LOPC');
+}
+
+function errorColorHandling(element) {
+	element.classList.add('missing');
+}
+
+function colorHandler(element) {
+	element.classList.remove('missing');
 }
 
 function renderPoa() {
+	const poaNodes = document.querySelectorAll('.poa');
+	let poaData = [];
+	poaNodes.forEach((item) => {
+		if (item.value === '') {
+			console.log(item.classList);
+			errorColorHandling(item);
+		} else {
+			poaData.push(item.value);
+			colorHandler(item);
+		}
+	});
+	if (poaData.length < 6) {
+		return alert(
+			`Proof of address requires the child's A-Number, Sponsor's first name, last name, address, city, state, zip code`
+		);
+	}
 	pageBodyEl.innerHTML = proofOfAddressTemplate;
+	changeTitle('Proof_Address');
 }
 
 let firstNameArr = [];
 let lastNameArr = [];
 
 function getNamesArr() {
+	const checkNames = document.querySelectorAll('.bgc');
+	let bgcData = [];
+	checkNames.forEach((item) => {
+		if (item.value === '') {
+			errorColorHandling(item);
+		} else {
+			colorHandler(item);
+			bgcData.push(item.value);
+		}
+	});
+	if (bgcData.length < 5) {
+		return alert('You are missing some data, check that again');
+	}
+	console.log(checkNames);
 	if (firstName.value.trim().split(' ').length > 1) {
 		firstNameArr = firstName.value.trim().split(' ');
 	} else {
@@ -266,7 +327,7 @@ function renderBGCheck(arr) {
 		<td>Clear</td>`;
 		console.log(tableRow);
 		tableBodyEl.append(tableRow);
-		changeTitle();
+		changeTitle('Public_Records_Check');
 	});
 }
 
@@ -281,11 +342,11 @@ function getInitials(first, last) {
 	return initials;
 }
 
-function changeTitle() {
+function changeTitle(docName) {
 	document.title = `${a_number.value}_SP_${getInitials(
 		firstNameArr,
 		lastNameArr
-	)}_Public_Records_Check`;
+	)}_${docName}`;
 }
 
 function electricBillDate() {
@@ -477,21 +538,21 @@ body{
 		   <table class="table table-invoice">
 			  <thead>
 				 <tr>
-					<th>TASK DESCRIPTION</th>
-					<th class="text-center" width="10%">RATE</th>
-					<th class="text-center" width="10%">HOURS</th>
-					<th class="text-right" width="20%">LINE TOTAL</th>
+					<th>DESCRIPTION</th>
+					<th class="text-center" width="10%">WATER</th>
+					<th class="text-center" width="10%">WASTE</th>
+					<th class="text-right" width="20%">ELECTRICITY</th>
 				 </tr>
 			  </thead>
 			  <tbody>
 				 <tr>
 					<td>
-					   <span class="text-inverse">Website design &amp; development</span><br>
+					   <span class="text-inverse">Water, Electricity, Waste</span><br>
 					   <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id sagittis arcu.</small>
 					</td>
 					<td class="text-center">$50.00</td>
-					<td class="text-center">50</td>
-					<td class="text-right">$2,500.00</td>
+					<td class="text-center">$20.00</td>
+					<td class="text-right">$90.00</td>
 				 </tr>
 				 
 			  </tbody>
@@ -502,21 +563,11 @@ body{
 		<div class="invoice-price">
 		   <div class="invoice-price-left">
 			  <div class="invoice-price-row">
-				 <div class="sub-price">
-					<small>SUBTOTAL</small>
-					<span class="text-inverse">$4,500.00</span>
-				 </div>
-				 <div class="sub-price">
-					<i class="fa fa-plus text-muted"></i>
-				 </div>
-				 <div class="sub-price">
-					<small>PAYPAL FEE (5.4%)</small>
-					<span class="text-inverse">$108.00</span>
-				 </div>
+				
 			  </div>
 		   </div>
 		   <div class="invoice-price-right">
-			  <small>TOTAL</small> <span class="f-w-600">$4508.00</span>
+			  <small>TOTAL</small> <span class="f-w-600">$160.00</span>
 		   </div>
 		</div>
 		<!-- end invoice-price -->
