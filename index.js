@@ -78,14 +78,8 @@ function emailConvert(str) {
 
 function renderFingerprints() {
 	getNamesArr();
-	if (firstName.value === '' || lastName.value === '') {
-		firstName.value === ''
-			? errorColorHandling(firstName)
-			: colorHandler(lastName);
-		lastName.value === ''
-			? errorColorHandling(lastName)
-			: colorHandler(lastName);
-		return alert('You are missing a name for this.');
+	if (validate('.fp', 3) === false) {
+		return alert(`you are missing some data.`);
 	}
 	const today = new Date().toLocaleDateString();
 
@@ -110,14 +104,8 @@ function renderFingerprints() {
 
 function renderFPConfirmation() {
 	getNamesArr();
-	if (firstName.value === '' || lastName.value === '') {
-		firstName.value === ''
-			? errorColorHandling(firstName)
-			: colorHandler(lastName);
-		lastName.value === ''
-			? errorColorHandling(lastName)
-			: colorHandler(lastName);
-		return alert('You are missing a name for this.');
+	if (validate('.fp-appt', 3) === false) {
+		return alert(`you are missing some data.`);
 	}
 	const today = new Date().toLocaleDateString();
 	pageBodyEl.innerHTML = `
