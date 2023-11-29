@@ -140,10 +140,9 @@ function validate(className, nodeLength) {
 		}
 	});
 	if (dataValues.length < nodeLength) {
-		console.log(nodeLength, dataValues.length);
 		return false;
 	}
-	console.log(nodeLength, dataValues.length);
+
 	return true;
 }
 function renderLOPC() {
@@ -299,8 +298,6 @@ function jumbleNames() {
 }
 
 function renderBGCheck(arr) {
-	console.log('renderBGC');
-
 	pageBodyEl.innerHTML = `
 	<h1 id="todays-date" class="d-flex p-2">
 		Public Records Check
@@ -330,7 +327,6 @@ function renderBGCheck(arr) {
 		<td>${stateEl.value}</td>
 		<td>${dob.value}</td>
 		<td>Clear</td>`;
-		console.log(tableRow);
 		tableBodyEl.append(tableRow);
 		changeTitle('Public_Records_Check');
 	});
@@ -388,7 +384,6 @@ function colorsBackToNormal() {
 
 function renderForeignId() {
 	getNamesArr();
-	console.log('clicked');
 	colorsBackToNormal();
 	if (!validate('.foreign-id', 4)) {
 		return alert(
@@ -598,7 +593,6 @@ function renderPoa() {
 	let poaData = [];
 	poaNodes.forEach((item) => {
 		if (item.value === '') {
-			console.log(item.classList);
 			errorColorHandling(item);
 		} else {
 			poaData.push(item.value);
