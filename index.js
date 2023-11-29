@@ -19,21 +19,30 @@ const childDob = document.getElementById('child-dob');
 const childName = document.getElementById('child-name');
 const fingerprintConfirmBtn = document.getElementById('fingerprint-confirm');
 const idCreator = document.getElementById('foreign-id');
+const bcBtn = document.getElementById('bc-btn');
+const motherName = document.getElementById('mother-name');
+const fatherName = document.getElementById('father-name');
+const coo = document.getElementById('coo');
+const lodBtn = document.getElementById('lod-btn');
 
-// firstName.value = 'David Jose';
-// lastName.value = 'Ortiz Salazar';
-// dob.value = '2/26/1983';
-// a_number.value = '123123123';
-// stateEl.value = 'TX';
-// relationship.value = 'Father';
-// caseManager.value = 'Hector Barberi';
-// phoneNum.value = 2342342345;
-// zipCode.value = 24534;
-// city.value = 'Crystal City';
-// address.value = '203 N Ave C';
+phoneNum.value = '0000000000';
 results.value = 'Clear';
-// childDob.value = '6/3/2017';
-// childName.value = 'Lorenzo Ortiz';
+
+firstName.value = 'David Jose';
+lastName.value = 'Ortiz Salazar';
+dob.value = '2/26/1983';
+a_number.value = '123123123';
+stateEl.value = 'TX';
+relationship.value = 'Father';
+caseManager.value = 'Hector Barberi';
+zipCode.value = 24534;
+city.value = 'Crystal City';
+address.value = '203 N Ave C';
+childDob.value = '6/3/2017';
+childName.value = 'Lorenzo Ortiz';
+coo.value = 'Guatemala';
+motherName.value = 'Gloria Ortiz';
+fatherName.value = 'Lorenzo Ortiz';
 
 goBtn.addEventListener('click', jumbleNames);
 fingerPrintBtn.addEventListener('click', renderFingerprints);
@@ -41,6 +50,8 @@ lopcBtn.addEventListener('click', renderLOPC);
 poaBtn.addEventListener('click', renderPoa);
 fingerprintConfirmBtn.addEventListener('click', renderFPConfirmation);
 idCreator.addEventListener('click', renderForeignId);
+bcBtn.addEventListener('click', renderBc);
+lodBtn.addEventListener('click', renderLOD);
 
 function getNumbers(str, startPos, length) {
 	let newStr = '';
@@ -117,19 +128,27 @@ function renderFPConfirmation() {
 	changeTitle('Fingerprint_Confirmation');
 }
 
-function renderLOPC() {
-	getNamesArr();
-	const dataPoints = document.querySelectorAll('.lopc');
+function validate(className, nodeLength) {
+	const dataPoints = document.querySelectorAll(className);
 	let dataValues = [];
 	dataPoints.forEach((item) => {
 		if (item.value === '') {
 			errorColorHandling(item);
 		} else {
-			dataValues.push(item.value);
 			colorHandler(item);
+			dataValues.push(item.value);
 		}
 	});
-	if (dataValues.length < 11) {
+	if (dataValues.length < nodeLength) {
+		console.log(nodeLength, dataValues.length);
+		return false;
+	}
+	console.log(nodeLength, dataValues.length);
+	return true;
+}
+function renderLOPC() {
+	getNamesArr();
+	if (validate('.lopc', 11) === false) {
 		return alert(
 			`It appears you are missing some data. Case manager name, Child Name, A-Number, Sponsor first name, last name, address, city, state, zip code, phone number, and relationship are required.`
 		);
@@ -228,24 +247,11 @@ let firstNameArr = [];
 let lastNameArr = [];
 
 function getNamesArr() {
-	console.log(firstNameArr.length, lastNameArr.length);
 	colorsBackToNormal();
 	if (firstNameArr.length !== 0 || lastNameArr.length !== 0) {
 		return;
 	}
-	const checkNames = document.querySelectorAll('.bgc');
-	let bgcData = [];
-	checkNames.forEach((item) => {
-		if (item.value === '') {
-			errorColorHandling(item);
-		} else {
-			colorHandler(item);
-			bgcData.push(item.value);
-		}
-	});
-	if (bgcData.length < 5) {
-		return alert('You are missing some data, check that again');
-	}
+
 	if (firstName.value.trim().split(' ').length > 1) {
 		firstNameArr = firstName.value.trim().split(' ');
 	} else {
@@ -260,17 +266,17 @@ function getNamesArr() {
 
 function jumbleNames() {
 	getNamesArr();
-	if (
-		!firstName.value ||
-		!lastName.value ||
-		!a_number.value ||
-		!dob.value ||
-		a_number.value.length !== 9
-	) {
+	if (!validate('.bgc', 6)) {
+		return alert(
+			'A number, Sponsor first name, last name, date of birth, state, and Results are required fields.'
+		);
+	}
+	if (a_number.value.length !== 9) {
 		return alert(
 			'There is some missing data, or your A-number is not quite correct somehow. Trying to help you, dude.  \n\n love, david.'
 		);
 	}
+
 	let fullNameArr = [];
 	if (firstNameArr.length > 1) {
 		fullNameArr.push(firstNameArr.concat(lastNameArr).join(' '));
@@ -278,7 +284,6 @@ function jumbleNames() {
 
 	for (var i = 0; i < firstNameArr.length; i++) {
 		let newName = firstNameArr[i] + ' ' + lastNameArr.join(' ');
-		console.log(fullNameArr.includes(newName));
 		if (!fullNameArr.includes(newName) || newName.split(' ').length < 2) {
 			fullNameArr.push(newName);
 		}
@@ -294,6 +299,8 @@ function jumbleNames() {
 }
 
 function renderBGCheck(arr) {
+	console.log('renderBGC');
+
 	pageBodyEl.innerHTML = `
 	<h1 id="todays-date" class="d-flex p-2">
 		Public Records Check
@@ -383,19 +390,9 @@ function renderForeignId() {
 	getNamesArr();
 	console.log('clicked');
 	colorsBackToNormal();
-	const dataPoints = document.querySelectorAll('.foreign-id');
-	let dataValues = [];
-	dataPoints.forEach((item) => {
-		if (item.value === '') {
-			errorColorHandling(item);
-		} else {
-			dataValues.push(item.value);
-			colorHandler(item);
-		}
-	});
-	if (dataValues.length < 3) {
+	if (!validate('.foreign-id', 4)) {
 		return alert(
-			`This button requires that you fill in the A-Number, Sponsor first name, last name, and date of birth.`
+			'Sponsor first Name, last Name and date of birth are required fields.'
 		);
 	}
 	pageBodyEl.innerHTML = `<style>
@@ -499,6 +496,100 @@ function createIssueDate() {
 	issueDate.setDate(randomize(28));
 	issueDate.setFullYear(issueDate.getFullYear() - 3);
 	return issueDate.toLocaleDateString();
+}
+function renderLOD() {
+	getNamesArr();
+	if (validate('.lod', 12) === false) {
+		return alert(
+			`LOD Requires Child's Name, Mother's Name, Father's Name and A-Number`
+		);
+	}
+	pageBodyEl.innerHTML = `<style>
+	.lod-el{
+		padding: 3rem;
+	}
+	</style><div class = 'lod-el'> <p>
+	Yo, ${motherName.value}, con domicilio en ${coo.value}, otorgo por este medio el poder a ${firstName.value} ${lastName.value}, con domicilio en ${address.value}, ${city.value}, ${stateEl.value} ${zip.value}, para actual como tutor legal de ${childName.value}, menor de edad, con fecha de nacimiento ${childDob.value}.
+   </p>
+   <p>
+	 Esta designacion se realiza con el fin de garantizar el bienestar, cuidado y proteccion adecuada de CH${childName.value} en situatcions en las que no me encuentre disponible para ejercer como su tutor legal
+   </p>
+   
+   <h4>Nombre de la madre: ${motherName.value}</h4>
+   <h4>Nombre del padre:  ${fatherName.value}</h4>
+   <br/>
+   <h4>Nombre del apoderado: ${firstName.value} ${lastName.value}</h4></div>`;
+
+	changeTitle('LOD');
+}
+function renderBc() {
+	getNamesArr();
+	validate('.bc', 6);
+	if (!validate('.bc', 6)) {
+		return alert(
+			`A-Number, Child's Name, Child's, DOB, Mother's Name, Father's Name, and Country of Origin or required.`
+		);
+	}
+	const today = new Date();
+	const yesterday = new Date(today.setDate(today.getDate() - 1));
+	pageBodyEl.innerHTML = `
+	<style>
+	element.style {
+	}
+	.bc-el {
+		text-align: center;
+		border: 1px solid black;
+		margin: 1rem;
+		padding: 1rem;
+		height: 100%;
+	}
+
+
+	html {
+		background-color: #fff;
+		font-size: 16px;
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+		min-width: 300px;
+		overflow-x: hidden;
+		overflow-y: scroll;
+		text-rendering: optimizeLegibility;
+		-webkit-text-size-adjust: 100%;
+		-moz-text-size-adjust: 100%;
+		text-size-adjust: 100%;
+	}
+	html {
+		font-family: sans-serif;
+		-ms-text-size-adjust: 100%;
+		-webkit-text-size-adjust: 100%;
+	}
+</style>
+	<div class="bc-el document"><h1 class="bc-title"></h1><div class="bc-header"><h2>Registro Nacional de las Personas</h2>
+	<h4>Republica de ${coo.value}</h4>
+	<h3>Registro Civil de las Personas</h3>
+	<h3>Certificado de Nacimiento</h3></div><div class="bc-info">
+	<h3>
+		El infrascrito Rigistrador Civil de las Personas del Rigistro Nacional de
+		las Personas del Municipio de
+		${coo.value}, Departamento de
+		${coo.value},
+	</h3>
+	<h3>CERTIFICA</h3>
+	<h3>
+		que con fecha ${yesterday.toLocaleDateString()} en la partida AAA, folio BB del libro ZZZ del
+		Registro Civil del Municipio de
+		${coo.value}, Departamento de
+		${coo.value}, quedo inscrito el nacimiento de:
+	</h3></div><div class="inscrito"><strong>Datos del Inscrito</strong><h3>${
+		childName.value
+	}</h3><h3>${childDob.value}</h3><h4>
+	${coo.value}</h4><hr></div><div class="inscrito"><strong>Datos de la
+		Madre</strong><h3>${
+			motherName.value
+		}</h3><hr><strong>Datos del Padre</strong><h3>${
+		fatherName.value
+	}</h3><hr></div><div class="inscrito"></div><h4></h4></div>!`;
+	document.title = `${a_number.value}_Child_BC`;
 }
 
 function renderPoa() {
