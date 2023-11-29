@@ -27,22 +27,23 @@ const lodBtn = document.getElementById('lod-btn');
 
 phoneNum.value = '0000000000';
 results.value = 'Clear';
+//THIS STUFF BELOW IS FOR TESTING
 
-firstName.value = 'David Jose';
-lastName.value = 'Ortiz Salazar';
-dob.value = '2/26/1983';
-a_number.value = '123123123';
-stateEl.value = 'TX';
-relationship.value = 'Father';
-caseManager.value = 'Hector Barberi';
-zipCode.value = 24534;
-city.value = 'Crystal City';
-address.value = '203 N Ave C';
-childDob.value = '6/3/2017';
-childName.value = 'Lorenzo Ortiz';
-coo.value = 'Guatemala';
-motherName.value = 'Gloria Ortiz';
-fatherName.value = 'Lorenzo Ortiz';
+// firstName.value = 'David Jose';
+// lastName.value = 'Ortiz Salazar';
+// dob.value = '2/26/1983';
+// a_number.value = '123123123';
+// stateEl.value = 'TX';
+// relationship.value = 'Father';
+// caseManager.value = 'Hector Barberi';
+// zipCode.value = 24534;
+// city.value = 'Crystal City';
+// address.value = '203 N Ave C';
+// childDob.value = '6/3/2017';
+// childName.value = 'Lorenzo Ortiz';
+// coo.value = 'Guatemala';
+// motherName.value = 'Gloria Ortiz';
+// fatherName.value = 'Lorenzo Ortiz';
 
 goBtn.addEventListener('click', jumbleNames);
 fingerPrintBtn.addEventListener('click', renderFingerprints);
