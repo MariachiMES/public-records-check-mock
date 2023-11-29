@@ -358,7 +358,7 @@ function electricBillDate() {
 	];
 	const today = new Date();
 	today.setDate(1);
-	const month = monthNames[today.getMonth() - 1];
+	const month = monthNames[today.getMonth()];
 	const formattedDate = today.toLocaleDateString();
 	return [month, formattedDate];
 }
