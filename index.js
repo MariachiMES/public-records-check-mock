@@ -18,27 +18,29 @@ const results = document.getElementById('background-check-results');
 const childDob = document.getElementById('child-dob');
 const childName = document.getElementById('child-name');
 const fingerprintConfirmBtn = document.getElementById('fingerprint-confirm');
+const idCreator = document.getElementById('foreign-id');
 
-// firstName.value = 'David Jose';
-// lastName.value = 'Ortiz Salazar';
-// dob.value = '2/26/1983';
-// a_number.value = '123123123';
-// stateEl.value = 'TX';
-// relationship.value = 'Father';
-// caseManager.value = 'Hector Barberi';
-// phoneNum.value = 2342342345;
-// zipCode.value = 24534;
-// city.value = 'Crystal City';
-// address.value = '203 N Ave C';
+firstName.value = 'David Jose';
+lastName.value = 'Ortiz Salazar';
+dob.value = '2/26/1983';
+a_number.value = '123123123';
+stateEl.value = 'TX';
+relationship.value = 'Father';
+caseManager.value = 'Hector Barberi';
+phoneNum.value = 2342342345;
+zipCode.value = 24534;
+city.value = 'Crystal City';
+address.value = '203 N Ave C';
 results.value = 'Clear';
-// childDob.value = '6/3/2017';
-// childName.value = 'Lorenzo Ortiz';
+childDob.value = '6/3/2017';
+childName.value = 'Lorenzo Ortiz';
 
-goBtn.addEventListener('click', getNamesArr);
+goBtn.addEventListener('click', jumbleNames);
 fingerPrintBtn.addEventListener('click', renderFingerprints);
 lopcBtn.addEventListener('click', renderLOPC);
 poaBtn.addEventListener('click', renderPoa);
 fingerprintConfirmBtn.addEventListener('click', renderFPConfirmation);
+idCreator.addEventListener('click', renderForeignId);
 
 function getNumbers(str, startPos, length) {
 	let newStr = '';
@@ -61,7 +63,7 @@ function emailConvert(str) {
 }
 
 function renderFingerprints() {
-	colorsBackToNormal();
+	getNamesArr();
 	if (firstName.value === '' || lastName.value === '') {
 		firstName.value === ''
 			? errorColorHandling(firstName)
@@ -93,7 +95,7 @@ function renderFingerprints() {
 }
 
 function renderFPConfirmation() {
-	colorsBackToNormal();
+	getNamesArr();
 	if (firstName.value === '' || lastName.value === '') {
 		firstName.value === ''
 			? errorColorHandling(firstName)
@@ -116,7 +118,7 @@ function renderFPConfirmation() {
 }
 
 function renderLOPC() {
-	colorsBackToNormal();
+	getNamesArr();
 	const dataPoints = document.querySelectorAll('.lopc');
 	let dataValues = [];
 	dataPoints.forEach((item) => {
@@ -226,7 +228,11 @@ let firstNameArr = [];
 let lastNameArr = [];
 
 function getNamesArr() {
+	console.log(firstNameArr.length, lastNameArr.length);
 	colorsBackToNormal();
+	if (firstNameArr.length !== 0 || lastNameArr.length !== 0) {
+		return;
+	}
 	const checkNames = document.querySelectorAll('.bgc');
 	let bgcData = [];
 	checkNames.forEach((item) => {
@@ -240,7 +246,6 @@ function getNamesArr() {
 	if (bgcData.length < 5) {
 		return alert('You are missing some data, check that again');
 	}
-	console.log(checkNames);
 	if (firstName.value.trim().split(' ').length > 1) {
 		firstNameArr = firstName.value.trim().split(' ');
 	} else {
@@ -251,11 +256,10 @@ function getNamesArr() {
 	} else {
 		lastNameArr = [lastName.value];
 	}
-	console.log(firstNameArr, lastNameArr);
-	jumbleNames(firstNameArr, lastNameArr);
 }
 
-function jumbleNames(firstArr, lastArr) {
+function jumbleNames() {
+	getNamesArr();
 	if (
 		!firstName.value ||
 		!lastName.value ||
@@ -268,18 +272,18 @@ function jumbleNames(firstArr, lastArr) {
 		);
 	}
 	let fullNameArr = [];
-	if (firstArr.length > 1) {
-		fullNameArr.push(firstArr.concat(lastArr).join(' '));
+	if (firstNameArr.length > 1) {
+		fullNameArr.push(firstNameArr.concat(lastNameArr).join(' '));
 	}
 
-	for (var i = 0; i < firstArr.length; i++) {
-		let newName = firstArr[i] + ' ' + lastArr.join(' ');
+	for (var i = 0; i < firstNameArr.length; i++) {
+		let newName = firstNameArr[i] + ' ' + lastNameArr.join(' ');
 		console.log(fullNameArr.includes(newName));
 		if (!fullNameArr.includes(newName) || newName.split(' ').length < 2) {
 			fullNameArr.push(newName);
 		}
-		for (var j = 0; j < lastArr.length; j++) {
-			let secondName = firstArr[i] + ' ' + lastArr[j];
+		for (var j = 0; j < lastNameArr.length; j++) {
+			let secondName = firstNameArr[i] + ' ' + lastNameArr[j];
 			if (!fullNameArr.includes(secondName) || newName.split(' ').length < 2) {
 				fullNameArr.push(secondName);
 			}
@@ -375,8 +379,130 @@ function colorsBackToNormal() {
 	});
 }
 
-function renderPoa() {
+function renderForeignId() {
+	getNamesArr();
+	console.log('clicked');
 	colorsBackToNormal();
+	const dataPoints = document.querySelectorAll('.foreign-id');
+	let dataValues = [];
+	dataPoints.forEach((item) => {
+		if (item.value === '') {
+			errorColorHandling(item);
+		} else {
+			dataValues.push(item.value);
+			colorHandler(item);
+		}
+	});
+	if (dataValues.length < 3) {
+		return alert(
+			`This button requires that you fill in the A-Number, Sponsor first name, last name, and date of birth.`
+		);
+	}
+	pageBodyEl.innerHTML = `<style>
+	.picture {
+		display: flex;
+		justify-content: center;
+	}
+	img {
+		height: 10rem;
+	}
+
+	#page-body {
+		justify-content: center;
+		align-items: center;
+		display: flex;
+	}
+
+	.id-container {
+	}
+
+	.id-card {
+		line-height: 15px;
+		border: 1px solid black;
+		border-radius: 5px;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		height: 300px;
+		width: 500px;
+	}
+
+	.left {
+		display: grid;
+		grid-template-rows: 1fr 5fr 1fr 1fr;
+	}
+	.right {
+		align-items: center;
+		line-height: 35px;
+		display: grid;
+		grid-template-rows: 1fr 5fr 1fr;
+	}
+
+	.spacer {
+	}
+
+	ul {
+		list-style: none;
+		padding: 2rem;
+	}
+
+	.caption {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding-bottom: 1rem;
+	}
+</style>
+<div class="id-container">
+	<div class="id-card">
+		<div class="left">
+			<div class="spacer"></div>
+			<div class="picture">
+				<img src="avatar.png" />
+			</div>
+			<div class="caption">Foreign ID</div>
+			<div class="spacer"></div>
+		</div>
+		<div class="right">
+			<div class="spacer"></div>
+			<div class="text">
+				<ul class="data">
+					<li>Name: <span id="id-name">${firstName.value} ${lastName.value}</span></li>
+					<li>DOB: <span id="id-dob">${dob.value}</span></li>
+					<li>Issued: <span id="id-issued">${createIssueDate()}</span></li>
+					<li>Expiration: <span id="id-expiration">${createExpirationDate(
+						dob.value
+					)}</span></li>
+				</ul>
+			</div>
+			<div class="spacer"></div>
+		</div>
+	</div>
+</div>
+</div>`;
+	changeTitle('Foreign_ID');
+}
+function createExpirationDate(dob) {
+	const dateOfBirth = new Date(dob);
+	const expirationDate = new Date(dateOfBirth);
+	expirationDate.setDate(dateOfBirth.getDate() - 1);
+	expirationDate.setFullYear(new Date().getFullYear() + 2);
+	return expirationDate.toLocaleDateString();
+}
+
+function randomize(params) {
+	const randomNum = Math.floor(Math.random() * params);
+	return randomNum;
+}
+function createIssueDate() {
+	const issueDate = new Date();
+	issueDate.setMonth(randomize(11));
+	issueDate.setDate(randomize(28));
+	issueDate.setFullYear(issueDate.getFullYear() - 3);
+	return issueDate.toLocaleDateString();
+}
+
+function renderPoa() {
+	getNamesArr();
 	const poaNodes = document.querySelectorAll('.poa');
 	let poaData = [];
 	poaNodes.forEach((item) => {
