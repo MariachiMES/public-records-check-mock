@@ -25,9 +25,15 @@ const fatherName = document.getElementById('father-name');
 const coo = document.getElementById('coo');
 const lodBtn = document.getElementById('lod-btn');
 const gender = document.getElementById('sponsor-gender');
+const instructionsBtn = document.getElementById('instructions-btn');
 
 phoneNum.value = '0000000000';
 results.value = 'Clear';
+
+window.addEventListener('load', () => {
+	instructionsBtn.click();
+});
+
 //THIS STUFF BELOW IS FOR TESTING
 
 // firstName.value = 'David Jose';
