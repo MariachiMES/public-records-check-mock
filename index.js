@@ -85,7 +85,9 @@ function emailConvert(str) {
 function renderFingerprints() {
 	getNamesArr();
 	if (validate('.fp', 3) === false) {
-		return alert(`you are missing some data.`);
+		return alert(
+			`There is some missing data.  The fields you are missing for this document will be highlighted in red.  Tryin' to help you, fam.  \n love, \n David`
+		);
 	}
 	const today = new Date().toLocaleDateString();
 
@@ -146,7 +148,7 @@ function renderLOPC() {
 	getNamesArr();
 	if (validate('.lopc', 11) === false) {
 		return alert(
-			`It appears you are missing some data. Case manager name, Child Name, A-Number, Sponsor first name, last name, address, city, state, zip code, phone number, and relationship are required.`
+			`There is some missing data.  The fields you are missing for this document will be highlighted in red.  Tryin' to help you, fam.  \n love, \n David`
 		);
 	}
 
@@ -264,13 +266,11 @@ function jumbleNames() {
 	getNamesArr();
 	if (!validate('.bgc', 6)) {
 		return alert(
-			'A number, Sponsor first name, last name, date of birth, state, and Results are required fields.'
+			`There is some missing data.  The fields you are missing for this document will be highlighted in red.  Tryin' to help you, fam.  \n love, \n David`
 		);
 	}
 	if (a_number.value.length !== 9) {
-		return alert(
-			'There is some missing data, or your A-number is not quite correct somehow. Trying to help you, dude.  \n\n love, david.'
-		);
+		return alert(`the a-number should have 9 digits please.  thank you.`);
 	}
 
 	let fullNameArr = [];
@@ -384,7 +384,7 @@ function renderForeignId() {
 	colorsBackToNormal();
 	if (!validate('.foreign-id', 5)) {
 		return alert(
-			'Sponsor first Name, last Name and date of birth are required fields.'
+			`There is some missing data.  The fields you are missing for this document will be highlighted in red.  Tryin' to help you, fam.  \n love, \n David`
 		);
 	}
 	pageBodyEl.innerHTML = `<style>
@@ -657,7 +657,7 @@ function renderLOD() {
 	getNamesArr();
 	if (validate('.lod', 12) === false) {
 		return alert(
-			`LOD Requires Child's Name, Mother's Name, Father's Name and A-Number`
+			`There is some missing data.  The fields you are missing for this document will be highlighted in red.  Tryin' to help you, fam.  \n love, \n David`
 		);
 	}
 	pageBodyEl.innerHTML = `<style>
@@ -683,7 +683,7 @@ function renderBc() {
 	validate('.bc', 6);
 	if (!validate('.bc', 6)) {
 		return alert(
-			`A-Number, Child's Name, Child's, DOB, Mother's Name, Father's Name, and Country of Origin or required.`
+			`There is some missing data.  The fields you are missing for this document will be highlighted in red.  Tryin' to help you, fam.  \n love, \n David`
 		);
 	}
 	const today = new Date();
@@ -762,7 +762,7 @@ function renderPoa() {
 	});
 	if (poaData.length < 8) {
 		return alert(
-			`Proof of address requires the child's A-Number, Sponsor's first name, last name, address, city, state, zip code`
+			`There is some missing data.  The fields you are missing for this document will be highlighted in red.  Tryin' to help you, fam.  \n love, \n David`
 		);
 	}
 	pageBodyEl.innerHTML = `<style>
