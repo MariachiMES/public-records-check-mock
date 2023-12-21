@@ -594,7 +594,7 @@ function renderForeignId() {
 						</div>
 					</div>
 					<div class="passport-bottom">
-						<div class="bottom-header">>>>>>>>PASAPORTE>>>>>>></div>
+						<div class="bottom-header">>>>>>>>${passportType(coo.value)}>>>>>>></div>
 						<div class="bottom-body">
 							<div class="passport-picture">
 							${getPassportPicture(gender.value)}
@@ -631,6 +631,19 @@ function getPassportPicture(sex) {
 		return passportMale;
 	} else {
 		return passportFemale;
+	}
+}
+function passportType(country) {
+	const countryArray = [
+		'USA',
+		'UNITED STATES',
+		'UNITED STATES OF AMERICA',
+		'CANADA',
+	];
+	if (countryArray.includes(country.toUpperCase())) {
+		return 'PASSPORT';
+	} else {
+		return 'PASAPORTE';
 	}
 }
 
